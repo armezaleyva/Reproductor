@@ -12,7 +12,7 @@
         <Button x:Name="btnReproducir" Content="Reproducir" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="75" Click="BtnReproducir_Click"/>
         <Button x:Name="btnDetener" Content="Detener" HorizontalAlignment="Left" Margin="178,47,0,0" VerticalAlignment="Top" Width="75" Click="BtnDetener_Click"/>
         <Button x:Name="btnPausa" Content="Pausa" HorizontalAlignment="Left" Margin="93,47,0,0" VerticalAlignment="Top" Width="75" Click="BtnPausa_Click"/>
-        <TextBlock x:Name="lblTiempoInicial" HorizontalAlignment="Left" Margin="10,82,0,0" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top"/>
+        <TextBlock x:Name="lblTiempoActual" HorizontalAlignment="Left" Margin="10,82,0,0" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top"/>
         <Slider x:Name="sldTiempo" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top" Width="334"/>
         <TextBlock x:Name="lblTiempoTotal" HorizontalAlignment="Left" Margin="300,82,0,0" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,152,0,0" TextWrapping="Wrap" Text="Elegir dispositivo de salida:" VerticalAlignment="Top"/>
