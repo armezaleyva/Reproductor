@@ -33,6 +33,8 @@ namespace Reproductor {
         // Exclusivo para salidas
         WaveOut output;
 
+        bool dragging = false;
+
         public MainWindow() {
             InitializeComponent();
             ListarDispositivosSalida();
@@ -47,7 +49,10 @@ namespace Reproductor {
 
         private void Timer_Tick(object sender, EventArgs e) {
             lblTiempoActual.Text = reader.CurrentTime.ToString().Substring(0, 8);
-            sldTiempo.Value = reader.CurrentTime.TotalMilliseconds;
+
+            if (!dragging) {
+                sldTiempo.Value = reader.CurrentTime.TotalMilliseconds;
+            }
         }
 
         void ListarDispositivosSalida() {
@@ -115,6 +120,18 @@ namespace Reproductor {
                 output.Pause();
                 btnReproducir.IsEnabled = true;
                 btnPausa.IsEnabled = false;
+            }
+        }
+
+        private void SldTiempo_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e) {
+            dragging = true;
+        }
+
+        private void SldTiempo_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e) {
+            dragging = false;
+            if (reader != null && output != null
+                && output.PlaybackState != PlaybackState.Stopped) {
+                reader.CurrentTime = TimeSpan.FromMilliseconds(sldTiempo.Value);
             }
         }
     }
