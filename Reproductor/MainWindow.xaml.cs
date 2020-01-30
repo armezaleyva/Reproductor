@@ -34,6 +34,7 @@ namespace Reproductor {
         WaveOut output;
 
         bool dragging = false;
+        VolumeSampleProvider volume;
 
         public MainWindow() {
             InitializeComponent();
@@ -81,11 +82,17 @@ namespace Reproductor {
             else {
                 if (txtRutaArchivo.Text != null && txtRutaArchivo.Text != "") {
                     reader = new AudioFileReader(txtRutaArchivo.Text);
+                    volume = new VolumeSampleProvider(reader);
+                    volume.Volume = (float)sldVolumen.Value;
+
                     output = new WaveOut();
                     output.DeviceNumber = cbDispositivoSalida.SelectedIndex;
                     output.PlaybackStopped += Output_PlaybackStopped;
-                    output.Init(reader);
+                    output.Init(volume);
                     output.Play();
+
+                    // Cambiar el volumen del output
+                    //output.Volume = (float)sldVolumen.Value;
 
                     btnReproducir.IsEnabled = false;
                     btnPausa.IsEnabled = true;
@@ -132,6 +139,14 @@ namespace Reproductor {
             if (reader != null && output != null
                 && output.PlaybackState != PlaybackState.Stopped) {
                 reader.CurrentTime = TimeSpan.FromMilliseconds(sldTiempo.Value);
+            }
+        }
+
+        private void SldVolumen_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+            if (reader != null && output != null
+                && output.PlaybackState != PlaybackState.Stopped) {
+                //output.Volume = (float)sldVolumen.Value;
+                volume.Volume = (float)sldVolumen.Value;
             }
         }
     }
